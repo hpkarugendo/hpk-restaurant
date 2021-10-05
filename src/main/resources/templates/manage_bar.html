@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/home.css" th:href="@{/css/home.css}">
+    <title>Kitchen > Bar</title>
+</head>
+<body>
+<div class="container-fluid">
+    <h1 class="display-3 text-center">Bar Management</h1>
+    <hr>
+    <div class="row manage-div">
+        <div class="col-md-12 bar-manage-drinks-div">
+            <h1 class="display-4 text-center">Drinks</h1>
+            <div th:if="${mNo}" th:text="${mNo}" class="alert alert-danger">message</div>
+            <div th:if="${mYes}" th:text="${mYes}" class="alert alert-success">message</div>
+            <table th:if="${drinks.size() > 0}" class="table table-dark table-bordered table-hover table-responsive">
+                <thead>
+                <tr>
+                    <th rowspan="2" class="align-middle">ID</th>
+                    <th rowspan="2" class="align-middle">NAME</th>
+                    <th rowspan="2" class="align-middle">DESCRIPTION</th>
+                    <th rowspan="2" class="align-middle">MENU</th>
+                    <th colspan="6" class="table-h-center">PRICE</th>
+                    <th rowspan="2" colspan="2" class="align-middle table-h-center">ACTIONS</th>
+                </tr>
+                <tr>
+                    <th class="table-h-center">BOTTLE</th>
+                    <th class="table-h-center">PINT</th>
+                    <th class="table-h-center">GLASS</th>
+                    <th class="table-h-center">SHOT</th>
+                    <th class="table-h-center">CUP</th>
+                    <th class="table-h-center">DEAL</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="d : ${drinks}">
+                    <td th:text="${d.id}">Id</td>
+                    <td th:text="${d.name}">Name</td>
+                    <td th:text="${d.description}">Description</td>
+                    <td th:text="${d.menu}">Menu</td>
+                    <td th:text="${d.bottle > 0 ? #numbers.formatCurrency(d.bottle) : '-'}" class="table-h-center">Price</td>
+                    <td th:text="${d.pint > 0 ? #numbers.formatCurrency(d.pint) : '-'}" class="table-h-center">Price</td>
+                    <td th:text="${d.glass > 0 ? #numbers.formatCurrency(d.glass) : '-'}" class="table-h-center">Price</td>
+                    <td th:text="${d.shot > 0 ? #numbers.formatCurrency(d.shot) : '-'}" class="table-h-center">Price</td>
+                    <td th:text="${d.cup > 0 ? #numbers.formatCurrency(d.cup) : '-'}" class="table-h-center">Price</td>
+                    <td th:text="${d.deal > 0 ? #numbers.formatCurrency(d.deal) : '-'}" class="table-h-center">Price</td>
+                    <td><span class="d-grid"><a th:href="@{'/manage/bar/drinks/change/' + ${d.id}}" class="btn btn-sm btn-warning">Update</a></span></td>
+                    <td><span class="d-grid"><a th:href="@{'/manage/bar/drinks/delete/' + ${d.id}}" class="btn btn-sm btn-danger">Delete</a></span></td>
+                </tr>
+                </tbody>
+            </table>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 d-grid">
+            <a th:href="@{/}" class="btn btn-lg btn-dark">Main Page</a>
+        </div>
+        <div class="col-sm-4 d-grid">
+            <a th:href="@{/manage/bar/drinks/new}" class="btn btn-lg btn-success"> Add Drink</a>
+        </div>
+        <div class="col-sm-4">
+            <form th:action="@{/logout}" method="post">
+                <div class="row">
+                    <div class="col d-grid">
+                        <input type="submit" class="btn btn-lg btn-warning" value="Logout">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+-->
+</body>
+</html>
